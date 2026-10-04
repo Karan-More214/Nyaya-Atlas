@@ -110,23 +110,57 @@ Edit `eval/eval_set.json` to match your documents, then run:
 python -m eval.run_eval
 ```
 
-Report the numbers (Hit@5, MRR, abstention accuracy) in your LinkedIn post and here:
+Latest results:
 
-> **Status:** no source PDFs were present in `data/raw/` when this was last updated, so the
-> numbers below have not been measured yet. `eval/eval_set.json` is still the 4-question
-> starter set. Add your PDFs, write ~20 answerable + ~5 out-of-scope questions, run the
-> command above and paste the real results here.
+The evaluation set (`eval/eval_set.json`) has 20 answerable questions written from the real
+text of the indexed documents (7 Constitution of India, 7 RBI AIFI master direction, 6 Income Tax
+FAQs) plus 5 out-of-scope questions. A retrieved chunk counts as a hit only if it comes from the
+expected file **and** contains the expected phrase. Every keyword was checked to exist in its file.
 
-| Metric | Result |
-|---|---|
-| Hit@5 | _not yet measured_ |
-| MRR | _not yet measured_ |
-| Abstention accuracy | _not yet measured_ |
+| Metric | Baseline (original defaults) | Tuned (current defaults) |
+|---|---|---|
+| Hit@5 | 80% (16/20) | **85% (17/20)** |
+| MRR | 0.658 | **0.767** |
+| Abstention accuracy (out-of-scope refused) | 40% (2/5) | **80% (4/5)** |
+| Answerable questions answered (not refused) | 100% | 95% (19/20) |
+
+Baseline: `CHUNK_SIZE=1000`, `CHUNK_OVERLAP=150`, `TOP_K=5`, `MIN_SIMILARITY=0.25`, no reranker.
+Tuned: `CHUNK_SIZE=1000`, `CHUNK_OVERLAP=250`, `TOP_K=5`, `MIN_SIMILARITY=0.50`, `USE_RERANKER=true`.
+
+Chunking and reranker sweep (`python -m eval.sweep`; each cell is Hit@5 / MRR):
+
+| CHUNK_SIZE / OVERLAP | Chunks | No reranker | Reranker |
+|---|---|---|---|
+| 500 / 50 | 4688 | 0.70 / 0.546 | 0.85 / 0.658 |
+| 500 / 100 | 5196 | 0.75 / 0.575 | 0.75 / 0.617 |
+| 800 / 100 | 2999 | 0.75 / 0.654 | 0.85 / 0.760 |
+| 800 / 200 | 3360 | 0.70 / 0.650 | 0.85 / 0.682 |
+| 1000 / 150 | 2473 | 0.80 / 0.658 | 0.85 / 0.689 |
+| **1000 / 250** | 2670 | 0.70 / 0.617 | **0.85 / 0.767** |
+| 1500 / 200 | 1662 | 0.75 / 0.662 | 0.85 / 0.704 |
+
+Other findings (1000 / 250 index):
+- `TOP_K`: with the reranker, Hit@3 = 0.85, Hit@5 = 0.85, Hit@8 = 0.95. I kept 5 because the gain
+  is one question out of 20 and 8 passages means a longer LLM prompt and more source cards.
+- `MIN_SIMILARITY`: 0.50 refused 4/5 out-of-scope questions and wrongly refused 1/20 answerable
+  ones. 0.60 refused 5/5 but wrongly refused 4/20, so I did not use it.
+
+How to read these numbers:
+- Only 20 + 5 questions, so one question moves a metric by 5 to 20 points. Treat differences of one
+  question as noise. The settings were tuned on the same set that is reported, so the tuned
+  numbers are optimistic.
+- The evaluation measures retrieval and the similarity gate only. It does not call the LLM, so
+  the LLM-side abstention and citation checks in `src/rag.py` are not part of these numbers.
+- Known misses: Article 21, the CET1 minimum and ITR-1 (SAHAJ) were not retrieved in the top 5;
+  "What is Form-16?" is retrieved but refused by the similarity gate (best similarity 0.39);
+  "What is the punishment for theft under the Indian Penal Code?" is not refused (similarity 0.56):
+  a vector-similarity gate cannot reliably separate out-of-scope questions that are close in topic
+  to the indexed legal text.
 
 Tuning loop: set one variable at a time via `.env` (`MIN_SIMILARITY`, `TOP_K`,
 `USE_RERANKER`), or `CHUNK_SIZE`/`CHUNK_OVERLAP` followed by `python -m src.ingest`, then
-re-run the evaluation. Note that the MiniLM embedder truncates input at ~256 tokens
-(about 1000 characters), so `CHUNK_SIZE` above ~1000 will not help the vector side.
+re-run `python -m eval.sweep` / `python -m eval.run_eval`. The MiniLM embedder truncates input
+at ~256 tokens (about 1000 characters), so `CHUNK_SIZE` above ~1000 does not help the vector side.
 
 ## Deploy a live demo (free)
 

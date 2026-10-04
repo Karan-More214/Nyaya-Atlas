@@ -74,9 +74,9 @@ with st.expander(f"Indexed documents ({len(pages_by_doc)})"):
         st.write(f"- **{title}**: {len(pages)} pages with text")
 
 examples = [
-    "What does Article 21 of the Constitution guarantee?",
-    "What are the fundamental duties of citizens?",
-    "Who can claim a deduction under Section 80C?",
+    "What are the fundamental duties of a citizen of India?",
+    "What minimum leverage ratio must AIFIs maintain?",
+    "Is family pension taxed as salary income?",
 ]
 st.write("Try an example:")
 cols = st.columns(len(examples))
@@ -84,7 +84,7 @@ for col, ex in zip(cols, examples):
     if col.button(ex, use_container_width=True):
         st.session_state["question"] = ex
 
-question = st.text_input("Ask a question", key="question", placeholder="e.g. What does Article 14 say?")
+question = st.text_input("Ask a question", key="question", placeholder="e.g. What does Article 14 say about equality before the law?")
 
 if question and question.strip():
     with st.spinner("Searching the documents and drafting a cited answer..."):

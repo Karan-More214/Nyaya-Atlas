@@ -1,12 +1,162 @@
 [
   {
-    "question": "What does Article 21 guarantee?",
-    "expected_keywords": ["protection of life and personal liberty"],
+    "question": "What does Article 21 of the Constitution protect?",
+    "expected_source": "constitution_of_india.pdf",
+    "expected_keywords": [
+      "deprived of his life or personal liberty"
+    ],
     "answerable": true
   },
   {
-    "question": "What are the fundamental duties of citizens?",
-    "expected_keywords": ["fundamental duties"],
+    "question": "What age group does the right to education under Article 21A cover?",
+    "expected_source": "constitution_of_india.pdf",
+    "expected_keywords": [
+      "six to fourteen years"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "What does Article 14 say about equality before the law?",
+    "expected_source": "constitution_of_india.pdf",
+    "expected_keywords": [
+      "equal protection of the laws within the territory of India"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "What are the fundamental duties of a citizen of India?",
+    "expected_source": "constitution_of_india.pdf",
+    "expected_keywords": [
+      "abide by the Constitution and respect its ideals"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "Which Article gives the right to move the Supreme Court for enforcement of fundamental rights?",
+    "expected_source": "constitution_of_india.pdf",
+    "expected_keywords": [
+      "right to move the Supreme Court by appropriate proceedings"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "Who controls the preparation of electoral rolls and the conduct of elections?",
+    "expected_source": "constitution_of_india.pdf",
+    "expected_keywords": [
+      "shall be vested in a Commission"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "How can Parliament amend the Constitution?",
+    "expected_source": "constitution_of_india.pdf",
+    "expected_keywords": [
+      "two-thirds of the members of that House present and voting"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "Which institutions are covered by the RBI master direction on prudential regulations for AIFIs?",
+    "expected_source": "rbi_master_direction_aifi_basel3_prudential.pdf",
+    "expected_keywords": [
+      "Small Industries Development Bank of India"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "What is the minimum capital to risk-weighted assets ratio (CRAR) for an AIFI?",
+    "expected_source": "rbi_master_direction_aifi_basel3_prudential.pdf",
+    "expected_keywords": [
+      "minimum CRAR of 9%"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "What is the minimum Common Equity Tier 1 ratio required of AIFIs?",
+    "expected_source": "rbi_master_direction_aifi_basel3_prudential.pdf",
+    "expected_keywords": [
+      "Common Equity Tier 1 (CET1) capital shall be at least 5.5%"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "What minimum leverage ratio must AIFIs maintain?",
+    "expected_source": "rbi_master_direction_aifi_basel3_prudential.pdf",
+    "expected_keywords": [
+      "minimum leverage ratio of 4%"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "What is the exposure limit for a single counterparty as a share of an AIFI's eligible capital base?",
+    "expected_source": "rbi_master_direction_aifi_basel3_prudential.pdf",
+    "expected_keywords": [
+      "not be higher than 20 per cent of the AIFI"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "How is a Large Exposure defined for an AIFI?",
+    "expected_source": "rbi_master_direction_aifi_basel3_prudential.pdf",
+    "expected_keywords": [
+      "equal to or above 10 per cent of the AIFI"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "Under which law does the RBI issue the AIFI prudential directions?",
+    "expected_source": "rbi_master_direction_aifi_basel3_prudential.pdf",
+    "expected_keywords": [
+      "Section 45L of the Reserve Bank of India Act, 1934"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "Under how many heads is a taxpayer's income classified under the Income-tax Act?",
+    "expected_source": "income_tax_faq_computation_of_tax.txt",
+    "expected_keywords": [
+      "five different heads of income"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "What is the difference between gross total income and total income?",
+    "expected_source": "income_tax_faq_computation_of_tax.txt",
+    "expected_keywords": [
+      "GTI less Deductions"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "Who can file ITR-1 (SAHAJ)?",
+    "expected_source": "income_tax_faq_filing_return.txt",
+    "expected_keywords": [
+      "Also known as SAHAJ is applicable to resident"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "Is family pension taxed as salary income?",
+    "expected_source": "income_tax_faq_salary_income.txt",
+    "expected_keywords": [
+      "taxable as income from other sources"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "What is Form-16?",
+    "expected_source": "income_tax_faq_salary_income.txt",
+    "expected_keywords": [
+      "Form-16 is a certificate of TDS"
+    ],
+    "answerable": true
+  },
+  {
+    "question": "At what rate is tax deducted at source if the deductee does not provide a PAN?",
+    "expected_source": "income_tax_faq_tds.txt",
+    "expected_keywords": [
+      "section 206AA"
+    ],
     "answerable": true
   },
   {
@@ -16,6 +166,21 @@
   },
   {
     "question": "Who won the 2011 Cricket World Cup?",
+    "expected_keywords": [],
+    "answerable": false
+  },
+  {
+    "question": "What is the capital of France?",
+    "expected_keywords": [],
+    "answerable": false
+  },
+  {
+    "question": "What is the punishment for theft under the Indian Penal Code?",
+    "expected_keywords": [],
+    "answerable": false
+  },
+  {
+    "question": "What is the current repo rate announced by the RBI?",
     "expected_keywords": [],
     "answerable": false
   }
