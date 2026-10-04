@@ -30,13 +30,35 @@ for every claim. If the documents don't contain the answer, it says so instead o
 
 ## Architecture
 
+**Phase 1: indexing** (`python -m src.ingest`)
+
 ```
-PDFs -> page-wise chunking -> embeddings (MiniLM) -> ChromaDB
-                          \-> BM25 index
-Question -> vector search + BM25 -> RRF fusion -> (rerank) -> top-k passages
-         -> LLM answers ONLY from passages with [n] citations -> Streamlit UI
-         (low similarity -> "I could not find this in the indexed documents.")
+PDFs in data/raw/
+   -> read page by page (pypdf), clean the text, skip blank/scanned pages
+   -> cut each page into ~1000-character chunks (150 overlap)
+   -> tag every chunk with: file, title, page number
+   -> turn each chunk into a vector (MiniLM embedding model, runs locally)
+   -> store vectors in ChromaDB, and the raw text in chunks.jsonl (for keyword search)
 ```
+
+**Phase 2: answering** (every question)
+
+```
+Question
+   -> meaning search (vectors in ChromaDB)  -> top 20
+   -> keyword search (BM25)                 -> top 20
+   -> merge both lists (Reciprocal Rank Fusion), optional reranker
+   -> keep the top 5 passages
+   -> gate: is the best vector match similar enough? if not, "I could not find this
+      in the indexed documents."
+   -> send the 5 numbered passages + question to the LLM
+   -> LLM answers only from them, with [1], [2] citations
+   -> check: answer must contain valid citations, otherwise abstain
+   -> UI shows the answer plus source cards (document, page, text)
+```
+
+Without an API key, the LLM steps are skipped and the app shows the top passages with
+their file and page.
 
 ## Project structure
 
