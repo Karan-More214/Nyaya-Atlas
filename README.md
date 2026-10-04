@@ -156,6 +156,12 @@ How to read these numbers:
   "What is the punishment for theft under the Indian Penal Code?" is not refused (similarity 0.56):
   a vector-similarity gate cannot reliably separate out-of-scope questions that are close in topic
   to the indexed legal text.
+  Article 21 is not a Hindi/bilingual extraction problem (the extracted text is English only).
+  Its chunk shares 982 characters with Articles 20, 21A and 22, and the text says "21. Protection
+  of life..." without the word "Article", so a question containing "Article 21" has little to match.
+  Questions phrased like the text ("protection of life and personal liberty") do retrieve it.
+  Cutting chunks at numbered-provision boundaries improved its rank (64th to 9th) but left Hit@5
+  at 85% and moved MRR from 0.767 to 0.792, within noise on 20 questions, so I did not keep it.
 
 Tuning loop: set one variable at a time via `.env` (`MIN_SIMILARITY`, `TOP_K`,
 `USE_RERANKER`), or `CHUNK_SIZE`/`CHUNK_OVERLAP` followed by `python -m src.ingest`, then
