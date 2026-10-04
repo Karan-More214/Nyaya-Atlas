@@ -1,0 +1,22 @@
+[
+  {
+    "question": "What does Article 21 guarantee?",
+    "expected_keywords": ["protection of life and personal liberty"],
+    "answerable": true
+  },
+  {
+    "question": "What are the fundamental duties of citizens?",
+    "expected_keywords": ["fundamental duties"],
+    "answerable": true
+  },
+  {
+    "question": "What is the recipe for butter chicken?",
+    "expected_keywords": [],
+    "answerable": false
+  },
+  {
+    "question": "Who won the 2011 Cricket World Cup?",
+    "expected_keywords": [],
+    "answerable": false
+  }
+]
