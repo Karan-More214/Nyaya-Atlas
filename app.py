@@ -104,8 +104,9 @@ if question and question.strip():
             tag = " ✅ cited" if i in cited else ""
             with st.container(border=True):
                 st.markdown(f"**[{i}] {s['title']}** · page {s['page']}{tag}")
+                where = f"PDF page {s['page']}" if s["source"].lower().endswith(".pdf") else "text file (no pages)"
                 st.markdown(
-                    f"<div class='src-meta'>File: {s['source']} · PDF page {s['page']}</div>",
+                    f"<div class='src-meta'>File: {s['source']} · {where}</div>",
                     unsafe_allow_html=True,
                 )
                 with st.expander("Show passage", expanded=i in cited):
